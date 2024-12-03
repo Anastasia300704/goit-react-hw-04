@@ -1,29 +1,46 @@
 import React, { useState } from 'react';
-import styles from './SearchBar.module.css';
+import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 
 const SearchBar = ({ onSubmit }) => {
-  const [input, setInput] = useState('');
+  const [query, setQuery] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(input);
-    setInput('');
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (query.trim() === '') {
+      toast.error('Please enter a search query!');
+      return;
+    }
+
+    onSubmit(query);
+    setQuery('');
   };
 
   return (
-    <header className={styles.header}>
-      <form onSubmit={handleSubmit}>
+    <header className="SearchBar">
+      <form className="SearchForm" onSubmit={handleSubmit}>
+        <button type="submit" className="SearchForm-button">
+          <span className="SearchForm-button-label">Search</span>
+        </button>
         <input
+          className="SearchForm-input"
           type="text"
-          autoComplete="off"
+          value={query}
+          onChange={handleInputChange}
           placeholder="Search images and photos"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
         />
-        <button type="submit">Search</button>
       </form>
     </header>
   );
+};
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchBar;
