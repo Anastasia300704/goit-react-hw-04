@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import SearchBar from './components/SearchBar/SearchBar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Loader from './components/Loader/Loader';
@@ -14,32 +15,44 @@ const App = () => {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
 
-  const fetchImages = async () => {
-    setIsLoading(true);
-    setError(null);
+  const handleLoadMore = () => {
+  fetchImages(query, page + 1); 
+  setPage((prevPage) => prevPage + 1); 
+};
 
-    try {
-      const response = await axios.get(BASE_URL, {
-        params: {
-          key: API_KEY,
-          q: query,
-          image_type: 'photo',
-          per_page: 12,
-        },
-      });
 
-      if (response.data.hits.length === 0) {
-        toast.error('No images found!');
-      } else {
-        setImages(response.data.hits);
-      }
-    } catch (err) {
-      setError('Something went wrong! Please try again.');
-    } finally {
-      setIsLoading(false);
+
+const fetchImages = async (newQuery, newPage = 1) => {
+  setIsLoading(true);
+
+  try {
+    const response = await axios.get(`${BASE_URL}/search/photos`, {
+      params: {
+        query: newQuery, // Параметр для пошуку
+        page: newPage,   // Номер сторінки
+        per_page: 12,    // Кількість зображень на сторінку
+      },
+      headers: {
+        Authorization: `Client-ID ${API_KEY}`, // Ваш ключ API
+      },
+    });
+
+    if (response.data.results.length === 0) {
+      throw new Error('No images found for your query.');
     }
-  };
+
+    setImages((prevImages) => [...prevImages, ...response.data.results]); // Додаємо нові зображення до старих
+    setError(null); // Очищаємо помилку
+  } catch (err) {
+    setError(err.message); // Записуємо повідомлення про помилку
+    toast.error('Something went wrong! Please try again.');
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   useEffect(() => {
     if (query !== '') {
@@ -55,9 +68,12 @@ const App = () => {
   return (
   <div className="App">
     <SearchBar onSubmit={handleSearch} />
-    {isLoading && <Loader />}
+      {isLoading && <Loader />}
+      {error && <ErrorMessage message={error} />}
     {error && <p className="ErrorMessage">{error}</p>}
-    <ImageGallery images={images} />
+      <ImageGallery images={images} />
+      {images.length > 0 && !isLoading && <LoadMoreBtn onClick={handleLoadMore} />}
+
     <ToastContainer /> {/* Додаємо контейнер для тостів */}
   </div>
 );
