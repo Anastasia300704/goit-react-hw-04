@@ -1,23 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import styles from './ImageCard.module.css';
 
-const ImageCard = ({ webformatURL, tags, onClick }) => {
+const ImageCard = ({ image, onClick }) => {
   return (
-    <div className="ImageCard">
-      <img
-        src={webformatURL}
-        alt={tags}
-        className="ImageCard-image"
-        onClick={onClick}
-      />
+    <div className={styles.card} onClick={onClick}>
+      <img src={image.urls.small} alt={image.alt_description} />
     </div>
   );
-};
-
-ImageCard.propTypes = {
-  webformatURL: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default ImageCard;

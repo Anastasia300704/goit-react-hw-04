@@ -1,9 +1,15 @@
+import React from 'react';
+import styles from './ErrorMessage.module.css';
+
 const ErrorMessage = ({ message }) => {
   return (
-    <div style={{ color: 'red', textAlign: 'center', marginTop: '20px' }}>
+    <div className={styles.error}>
       {message}
     </div>
   );
 };
 
 export default ErrorMessage;
+
+
+

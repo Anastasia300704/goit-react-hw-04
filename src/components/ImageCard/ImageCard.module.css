@@ -1,12 +1,13 @@
-.ImageCard {
-    border: 1px solid #ccc;
-    margin: 5px;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.ImageCard-image {
+.card {
     display: block;
     width: 100%;
     cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
