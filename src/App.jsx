@@ -5,7 +5,6 @@ import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/ImageModal/ImageModal';
-import axios from 'axios';
 
 const BASE_URL = 'https://api.unsplash.com';
 const API_KEY = 'c9NvrA2EJhiEEBfeAI9PnJ8_cT1yI97cO19-DWOBDTk';
@@ -22,24 +21,39 @@ const App = () => {
   useEffect(() => {
     if (!query) return;
 
-const fetchImages = async () => {
+const fetchImages = async (query, page) => {
   try {
-    const response = await fetch(`${BASE_URL}/search/photos?query=${query}&page=${page}&client_id=${API_KEY}`);
+    setIsLoading(true);
+    setError(null); 
+    const response = await fetch(
+      `${BASE_URL}/search/photos?query=${query}&page=${page}&client_id=${API_KEY}`
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch images");
+    }
     const data = await response.json();
-    setImages(data.results || []); 
-  } catch (error) {
-    console.error('Error fetching images:', error);
+    setImages((prevImages) => [...prevImages, ...data.results]);
+  } catch (err) {
+    setError(err.message);
+    toast.error("Something went wrong! Please try again.");
+  } finally {
+    setIsLoading(false);
   }
 };
+
 
     fetchImages();
   }, [query, page]);
 
-  const handleSearch = (newQuery) => {
-    setQuery(newQuery);
+    const handleSearch = (searchQuery) => {
+   setQuery(searchQuery);
     setPage(1);
     setImages([]);
   };
+
+
+  
+
 
   const handleLoadMore = () => {
     setPage((prevPage) => prevPage + 1);
@@ -47,14 +61,13 @@ const fetchImages = async () => {
 
   const closeModal = () => setSelectedImage(null);
 
-  return (
+return (
     <div>
       <SearchBar onSubmit={handleSearch} />
       {error && <ErrorMessage message={error} />}
       <ImageGallery images={images} onImageClick={setSelectedImage} />
       {isLoading && <Loader />}
       {images.length > 0 && !isLoading && <LoadMoreBtn onClick={handleLoadMore} />}
-      {images && images.length > 0 && (images.map((image) => (<ImageCard key={image.id} {...image} />)))}
       {selectedImage && <ImageModal image={selectedImage} onClose={closeModal} />}
     </div>
   );
