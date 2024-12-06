@@ -40,3 +40,28 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Example styling */
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.image-card img {
+  width: 100%;
+  height: auto;
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

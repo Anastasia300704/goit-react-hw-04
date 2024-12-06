@@ -1,12 +1,7 @@
 import React from 'react';
-import styles from './ErrorMessage.module.css';
 
-const ErrorMessage = ({ message }) => {
-  return (
-    <div className={styles.error}>
-      {message}
-    </div>
-  );
+const ErrorMessage = () => {
+  return <div style={{ color: 'red' }}>Failed to fetch images. Please try again later.</div>;
 };
 
 export default ErrorMessage;

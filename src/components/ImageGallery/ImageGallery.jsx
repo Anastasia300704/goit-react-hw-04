@@ -1,20 +1,18 @@
-import React from "react";
-import ImageCard from "../ImageCard/ImageCard";
-import styles from "./ImageGallery.module.css";
+import React from 'react';
+import ImageCard from '../ImageCard/ImageCard';
 
-const ImageGallery = ({ images, onImageClick }) => {
-  if (!images || images.length === 0) {
+const ImageGallery = ({ images }) => {
+  if (!images.length) {
     return <p>No images found</p>;
   }
 
   return (
-    <ul className={styles.gallery}>
+    <div className="image-gallery">
       {images.map((image) => (
-        <ImageCard key={image.id} image={image} onClick={onImageClick} />
+        <ImageCard key={image.id} image={image} />
       ))}
-    </ul>
+    </div>
   );
 };
 
 export default ImageGallery;
-
