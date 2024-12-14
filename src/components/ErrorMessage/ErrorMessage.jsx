@@ -1,10 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './ErrorMessage.module.css';
 
-const ErrorMessage = () => {
-  return <div style={{ color: 'red' }}>Failed to fetch images. Please try again later.</div>;
+const ErrorMessage = ({ message }) => {
+  return <p className={styles.error}>{message}</p>;
+};
+
+ErrorMessage.propTypes = {
+  message: PropTypes.string.isRequired,
 };
 
 export default ErrorMessage;
 
-
-
+  

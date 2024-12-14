@@ -1,13 +1,16 @@
 .card {
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
 
-.card img {
+.image {
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }
