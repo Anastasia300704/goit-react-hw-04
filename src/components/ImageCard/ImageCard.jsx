@@ -15,4 +15,4 @@ ImageCard.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default ImageCard;
+export default  ImageCard;
