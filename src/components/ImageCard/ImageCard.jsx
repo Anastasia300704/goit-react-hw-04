@@ -1,31 +1,18 @@
-// src/components/ImageCard/ImageCard.jsx
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styles from './ImageCard.module.css';
-import ImageModal from '../ImageModal/ImageModal';
+import css from './ImageCard.module.css';
 
-const ImageCard = ({ imageUrl, alt }) => {
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => setModalOpen(true);
-  const handleCloseModal = () => setModalOpen(false);
-
+const ImageCard = ({ src, alt, onClick }) => {
   return (
-    <div className={styles.card}>
-      <img
-        src={imageUrl}
-        alt={alt || 'Image'}
-        className={styles.image}
-        onClick={handleOpenModal}
-      />
-      {isModalOpen && <ImageModal imageUrl={imageUrl} alt={alt} onClose={handleCloseModal} />}
+    <div className={css.card} onClick={onClick}>
+      <img src={src} alt={alt} className={css.image} />
     </div>
   );
 };
 
 ImageCard.propTypes = {
-  imageUrl: PropTypes.string.isRequired,
-  alt: PropTypes.string,
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ImageCard;

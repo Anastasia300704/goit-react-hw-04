@@ -1,38 +1,28 @@
-// src/components/ImageModal/ImageModal.jsx
-import React, { useEffect } from 'react';
+import ReactModal from 'react-modal';
 import PropTypes from 'prop-types';
-import styles from './ImageModal.module.css';
+import css from './ImageModal.module.css';
 
-const ImageModal = ({ imageUrl, alt, onClose }) => {
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.code === 'Escape') {
-        onClose();
-      }
-    };
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [onClose]);
+ReactModal.setAppElement('#root');
 
-  const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
+const ImageModal = ({ isOpen, onRequestClose, imageUrl, alt }) => {
   return (
-    <div className={styles.overlay} onClick={handleBackdropClick}>
-      <div className={styles.modal}>
-        <img src={imageUrl} alt={alt} />
-      </div>
-    </div>
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="Image Modal"
+      overlayClassName={css.overlay}
+      className={css.modal}
+    >
+      <img src={imageUrl} alt={alt} />
+    </ReactModal>
   );
 };
 
 ImageModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
   imageUrl: PropTypes.string.isRequired,
-  alt: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
+  alt: PropTypes.string.isRequired,
 };
 
 export default ImageModal;
