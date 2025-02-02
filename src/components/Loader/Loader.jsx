@@ -1,6 +1,5 @@
-// src/components/Loader/Loader.jsx
 import React from 'react';
-import { ThreeDots } from 'react-loader-spinner'; // Импортируем компонент ThreeDots для индикатора загрузки
+import { ThreeDots } from 'react-loader-spinner'; 
 import styles from './Loader.module.css';
 
 const Loader = () => {

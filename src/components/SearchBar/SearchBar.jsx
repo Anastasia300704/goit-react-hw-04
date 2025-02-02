@@ -1,4 +1,3 @@
-// src/components/SearchBar/SearchBar.jsx
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import styles from './SearchBar.module.css';
@@ -9,13 +8,11 @@ const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Если поле ввода пустое, показываем уведомление
     if (query.trim() === '') {
       toast.error('Please enter a search term');
       return;
     }
 
-    // Передаем значение в родительский компонент через onSubmit
     onSubmit(query);
     setQuery('');
   };

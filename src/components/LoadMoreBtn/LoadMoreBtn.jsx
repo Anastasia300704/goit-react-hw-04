@@ -1,4 +1,3 @@
-// src/components/LoadMoreBtn/LoadMoreBtn.jsx
 import React from 'react';
 import styles from './LoadMoreBtn.module.css';
 

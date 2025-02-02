@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import ImageModal from './components/ImageModal/ImageModal';
@@ -62,6 +61,12 @@ const App = () => {
     setImages([]);
     setPage(1);
   };
+
+  const handleImageClick = (image) => {
+  setSelectedImage(image); 
+  setIsModalOpen(true); 
+};
+
 
   const loadMoreImages = () => {
     if (page < totalPages) {

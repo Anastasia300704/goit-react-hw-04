@@ -1,10 +1,8 @@
-// src/components/ImageModal/ImageModal.jsx
 import React, { useEffect } from 'react';
-import Modal from 'react-modal'; // Импортируем React Modal
+import Modal from 'react-modal';
 import styles from './ImageModal.module.css';
 
 const ImageModal = ({ isOpen, onClose, image }) => {
-  // Закрытие модального окна при нажатии клавиши ESC
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') {
@@ -18,15 +16,15 @@ const ImageModal = ({ isOpen, onClose, image }) => {
     };
   }, [onClose]);
 
-  if (!image) return null; // Если нет изображения, ничего не показываем
+  if (!image) return null; 
 
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onClose} // Закрытие модалки по клику на overlay
+      onRequestClose={onClose} 
       className={styles.modalContent}
       overlayClassName={styles.overlay}
-      closeTimeoutMS={200} // Мягкое закрытие
+      closeTimeoutMS={200} 
     >
       <div className={styles.modalWrapper}>
         <img src={image.urls.regular} alt={image.alt_description} />

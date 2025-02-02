@@ -1,18 +1,14 @@
-// src/components/ImageGallery/ImageGallery.jsx
 import React from 'react';
-import ImageCard from '../ImageCard/ImageCard'; // Импортируем компонент ImageCard
+import ImageCard from '../ImageCard/ImageCard'; 
 import styles from './ImageGallery.module.css';
 
-const ImageGallery = ({ images }) => {
-  if (images.length === 0) {
-    return <p>No images found. Please search again.</p>; // Сообщение, если нет изображений
-  }
-
+const ImageGallery = ({ images, onImageClick }) => {
   return (
-    <ul className={styles.gallery}>
+    <ul>
       {images.map((image) => (
-        <li key={image.id} className={styles.item}>
-          <ImageCard image={image} />
+        <li key={image.id}>
+          <ImageCard image={image} onClick={onImageClick} /> 
+          {/* Передаем обработчик клика в ImageCard */}
         </li>
       ))}
     </ul>
