@@ -1,0 +1,41 @@
+/* src/components/ImageModal/ImageModal.module.css */
+.modalContent {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+    margin: auto;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.modalWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modalWrapper img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+.info {
+    margin-top: 10px;
+    color: #333;
+}
+
+.info p {
+    margin: 5px 0;
+}
