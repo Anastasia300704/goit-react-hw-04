@@ -62,11 +62,6 @@ const App = () => {
     setPage(1);
   };
 
-  const handleImageClick = (image) => {
-  setSelectedImage(image); 
-  setIsModalOpen(true); 
-};
-
 
   const loadMoreImages = () => {
     if (page < totalPages) {
@@ -81,7 +76,7 @@ const App = () => {
       {loading && !images.length && <Loader />}
       {!loading && images.length === 0 && !error && <p>Ничего не найдено.</p>}
 
-      <ImageGallery images={images} openModal={openModal} />
+      <ImageGallery images={images} onImageClick={openModal} />
       
       {images.length > 0 && page < totalPages && (
         <LoadMoreBtn onClick={loadMoreImages} />
